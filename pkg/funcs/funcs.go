@@ -18,7 +18,7 @@ func AboutPage(Res http.ResponseWriter, Req *http.Request) {
 
 func RenderTmpl(Res http.ResponseWriter, tmpl string) {
 
-	parsedTemplate, _ := template.ParseFiles("./Templates/" + tmpl)
+	parsedTemplate, _ := template.ParseFiles("./Templates/"+tmpl, "./templates/base.layout.tmpl")
 	err := parsedTemplate.Execute(Res, nil)
 
 	if err != nil {
