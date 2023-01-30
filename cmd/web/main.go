@@ -19,7 +19,10 @@ func main() {
 	if err != nil {
 		log.Fatal("Cannot create template cache")
 	}
+
 	app.TemplateCache = tempCache
+
+	funcs.SetConfig(&app)
 
 	http.HandleFunc("/", funcs.HomePage)
 	http.HandleFunc("/about", funcs.AboutPage)
