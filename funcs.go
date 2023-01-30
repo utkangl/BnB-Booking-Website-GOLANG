@@ -6,11 +6,12 @@ import (
 	"net/http"
 )
 
+// homePage's handler function
 func HomePage(Res http.ResponseWriter, Req *http.Request) {
 	renderTmpl(Res, "homePage.tmpl")
 }
 
-// this function is a handler function
+// aboutPage's handler function
 func AboutPage(Res http.ResponseWriter, Req *http.Request) {
 	renderTmpl(Res, "aboutPage.tmpl")
 }
