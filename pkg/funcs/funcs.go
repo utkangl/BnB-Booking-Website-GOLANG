@@ -1,4 +1,4 @@
-package main
+package funcs
 
 import (
 	"fmt"
@@ -8,15 +8,15 @@ import (
 
 // homePage's handler function
 func HomePage(Res http.ResponseWriter, Req *http.Request) {
-	renderTmpl(Res, "homePage.tmpl")
+	RenderTmpl(Res, "homePage.tmpl")
 }
 
 // aboutPage's handler function
 func AboutPage(Res http.ResponseWriter, Req *http.Request) {
-	renderTmpl(Res, "aboutPage.tmpl")
+	RenderTmpl(Res, "aboutPage.tmpl")
 }
 
-func renderTmpl(Res http.ResponseWriter, tmpl string) {
+func RenderTmpl(Res http.ResponseWriter, tmpl string) {
 
 	parsedTemplate, _ := template.ParseFiles("./Templates/" + tmpl)
 	err := parsedTemplate.Execute(Res, nil)
