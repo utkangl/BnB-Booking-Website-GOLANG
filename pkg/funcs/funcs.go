@@ -6,6 +6,8 @@ import (
 	"log"
 	"net/http"
 	"path/filepath"
+
+	"github.com/utkangl/GoWEB/pkg/config"
 )
 
 // homePage's handler function
@@ -18,22 +20,26 @@ func AboutPage(Res http.ResponseWriter, Req *http.Request) {
 	RenderTemplate(Res, "about.page.tmpl")
 }
 
+var app *config.AppConfig
+
+func SetConfig(Application *config.AppConfig) {
+	app = Application
+}
+
 func RenderTemplate(Res http.ResponseWriter, tmpl string) {
+
 	// create a template cache
-	tempCache, err := CreateTemplateCache()
-	if err != nil {
-		log.Println(err)
-	}
+	tempCache := app.TemplateCache
 
 	// get requested template from cache
 	temp, isExist := tempCache[tmpl]
 	if !isExist {
-		log.Fatal(err, "The template that this handler function tries to pass as argument does not exist") // kill the program if template does not exist
+		log.Fatal("The template that this handler function tries to pass as argument does not exist") // kill the program if template does not exist
 	}
 
-	buf := new(bytes.Buffer)     //Using buffer for higher protection,
-	err = temp.Execute(buf, nil) //Rather than executing the template directly, it will executes its bytes.
-	if err != nil {              // It will help to understand why does the error exactly come from
+	buf := new(bytes.Buffer)      //Using buffer for higher protection,
+	err := temp.Execute(buf, nil) //Rather than executing the template directly, it will executes its bytes.
+	if err != nil {               // It will help to understand why does the error exactly come from
 		log.Println(err)
 	}
 	//render the template
