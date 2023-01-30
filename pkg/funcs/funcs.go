@@ -2,10 +2,10 @@ package funcs
 
 import (
 	"bytes"
+	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
-	"text/template"
 )
 
 // homePage's handler function
@@ -20,7 +20,7 @@ func AboutPage(Res http.ResponseWriter, Req *http.Request) {
 
 func RenderTemplate(Res http.ResponseWriter, tmpl string) {
 	// create a template cache
-	tempCache, err := createTemplateCache()
+	tempCache, err := CreateTemplateCache()
 	if err != nil {
 		log.Println(err)
 	}
@@ -44,7 +44,7 @@ func RenderTemplate(Res http.ResponseWriter, tmpl string) {
 }
 
 // this function takes all templates and layouts, puts them together and adds them to the cache
-func createTemplateCache() (map[string]*template.Template, error) {
+func CreateTemplateCache() (map[string]*template.Template, error) {
 	templateCache := make(map[string]*template.Template)
 
 	// get all templates from templates folder
