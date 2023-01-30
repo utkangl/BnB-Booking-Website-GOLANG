@@ -9,18 +9,18 @@ import (
 
 // homePage's handler function
 func HomePage(Res http.ResponseWriter, Req *http.Request) {
-	RenderTmpl(Res, "homePage.tmpl")
+	RenderTemplate(Res, "homePage.tmpl")
 }
 
 // aboutPage's handler function
 func AboutPage(Res http.ResponseWriter, Req *http.Request) {
-	RenderTmpl(Res, "aboutPage.tmpl")
+	RenderTemplate(Res, "aboutPage.tmpl")
 }
 
 var tmplCache = make(map[string]*template.Template) // this map will store the datas thar parsedTemplate function throws (and it's type is *template.Teamplate)
 // and the key to look up  to data is going to be a string
 
-func RenderTmpl(Res http.ResponseWriter, t string) {
+func RenderTemplate(Res http.ResponseWriter, t string) {
 
 	var tmpl *template.Template
 	var err error
@@ -29,7 +29,7 @@ func RenderTmpl(Res http.ResponseWriter, t string) {
 
 	if !inMap { // if inMap is false
 		log.Println("New template hes been created")
-		err = createTemplate(t) // creating the template with the string that we take as parameter of the function, and assigning variable err to possible returning error
+		err = CreateTemplateCache(t) // creating the template with the string that we take as parameter of the function, and assigning variable err to possible returning error
 		if err != nil {
 			log.Println(err)
 		}
@@ -45,7 +45,7 @@ func RenderTmpl(Res http.ResponseWriter, t string) {
 	}
 }
 
-func createTemplate(t string) error {
+func CreateTemplateCache(t string) error {
 
 	templates := []string{
 		fmt.Sprintf("./templates/%s", t), // assigning the parameter t as the name of the template
