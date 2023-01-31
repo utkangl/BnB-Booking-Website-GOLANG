@@ -1,4 +1,4 @@
-package funcs
+package render
 
 import (
 	"bytes"
@@ -9,16 +9,6 @@ import (
 
 	"github.com/utkangl/GoWEB/pkg/config"
 )
-
-// homePage's handler function
-func HomePage(Res http.ResponseWriter, Req *http.Request) {
-	RenderTemplate(Res, "home.page.tmpl")
-}
-
-// aboutPage's handler function
-func AboutPage(Res http.ResponseWriter, Req *http.Request) {
-	RenderTemplate(Res, "about.page.tmpl")
-}
 
 var app *config.AppConfig
 
