@@ -32,7 +32,7 @@ func (rep *Repository) HomePage(Res http.ResponseWriter, Req *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["greeting"] = "Welcome to HomePage!"
 
-	render.RenderTemplate(Res, "home.page.tmpl", &models.TemplateData{Stringmap: stringMap})
+	render.RenderTemplate(Res, "home.page.tmpl", &models.TemplateData{StringMap: stringMap})
 }
 
 // aboutPage's handler function (repository typed receiver function )
@@ -41,5 +41,5 @@ func (rep *Repository) AboutPage(Res http.ResponseWriter, Req *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["greeting"] = "Welcome to AboutPage!"
 
-	render.RenderTemplate(Res, "about.page.tmpl", &models.TemplateData{Stringmap: stringMap})
+	render.RenderTemplate(Res, "about.page.tmpl", &models.TemplateData{StringMap: stringMap})
 }

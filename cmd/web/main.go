@@ -28,9 +28,18 @@ func main() {
 
 	render.SetConfig(&app)
 
-	http.HandleFunc("/", handlers.Repo.HomePage)
-	http.HandleFunc("/about", handlers.Repo.AboutPage)
+	// http.HandleFunc("/", handlers.Repo.HomePage)
+	// http.HandleFunc("/about", handlers.Repo.AboutPage)
+	// _ = http.ListenAndServe(portNumber, nil)
+
+	serve := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app),
+	}
 
 	fmt.Println("Starting the Application on Port: ", portNumber)
-	_ = http.ListenAndServe(portNumber, nil)
+
+	err = serve.ListenAndServe()
+	log.Fatal(err, "Cannot serve")
+
 }
