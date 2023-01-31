@@ -15,6 +15,7 @@ func routes(app *config.AppConfig) http.Handler {
 
 	mux.Use(middleware.Recoverer) // Recovers from possible panics and gives detaield information about what went wrong
 	mux.Use(WriteToConsole)
+	mux.Use(NoSurf)
 
 	mux.Get("/", handlers.Repo.HomePage)
 	mux.Get("/about", handlers.Repo.AboutPage)
