@@ -7,7 +7,8 @@ import (
 	"net/http"
 	"path/filepath"
 
-	"github.com/utkangl/GoWEB/pkg/config"
+	"github.com/utkangl/GoWEB/packages/config"
+	"github.com/utkangl/GoWEB/packages/models"
 )
 
 var app *config.AppConfig
@@ -16,7 +17,12 @@ func SetConfig(Application *config.AppConfig) {
 	app = Application
 }
 
-func RenderTemplate(Res http.ResponseWriter, tmpl string) {
+// we will call this function when we want some data to be sent to every template of our application
+func AddDefaultDataToTemplate(tempData *models.TemplateData) *models.TemplateData {
+	return tempData
+}
+
+func RenderTemplate(Res http.ResponseWriter, tmpl string, templateData *models.TemplateData) {
 
 	// create a template cache
 	tempCache := app.TemplateCache
@@ -27,9 +33,13 @@ func RenderTemplate(Res http.ResponseWriter, tmpl string) {
 		log.Fatal("The template that this handler function tries to pass as argument does not exist") // kill the program if template does not exist
 	}
 
-	buf := new(bytes.Buffer)      //Using buffer for higher protection,
-	err := temp.Execute(buf, nil) //Rather than executing the template directly, it will executes its bytes.
-	if err != nil {               // It will help to understand why does the error exactly come from
+	buf := new(bytes.Buffer)
+
+	templateData = AddDefaultDataToTemplate(templateData)
+
+	//Using buffer for higher protection,
+	err := temp.Execute(buf, templateData) //Rather than executing the template directly, it will executes its bytes.
+	if err != nil {                        // It will help to understand why does the error exactly come from
 		log.Println(err)
 	}
 	//render the template

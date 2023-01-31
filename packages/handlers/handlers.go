@@ -3,8 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/utkangl/GoWEB/pkg/config"
-	"github.com/utkangl/GoWEB/pkg/render"
+	"github.com/utkangl/GoWEB/packages/config"
+	"github.com/utkangl/GoWEB/packages/models"
+	"github.com/utkangl/GoWEB/packages/render"
 )
 
 // Repository variable to used by handlers
@@ -27,10 +28,18 @@ func SetRepo(r *Repository) {
 
 // homePage's handler function (repository typed receiver function )
 func (rep *Repository) HomePage(Res http.ResponseWriter, Req *http.Request) {
-	render.RenderTemplate(Res, "home.page.tmpl")
+
+	stringMap := make(map[string]string)
+	stringMap["greeting"] = "Welcome to HomePage!"
+
+	render.RenderTemplate(Res, "home.page.tmpl", &models.TemplateData{Stringmap: stringMap})
 }
 
 // aboutPage's handler function (repository typed receiver function )
 func (rep *Repository) AboutPage(Res http.ResponseWriter, Req *http.Request) {
-	render.RenderTemplate(Res, "about.page.tmpl")
+
+	stringMap := make(map[string]string)
+	stringMap["greeting"] = "Welcome to AboutPage!"
+
+	render.RenderTemplate(Res, "about.page.tmpl", &models.TemplateData{Stringmap: stringMap})
 }

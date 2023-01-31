@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/utkangl/GoWEB/pkg/config"
-	"github.com/utkangl/GoWEB/pkg/handlers"
-	"github.com/utkangl/GoWEB/pkg/render"
+	"github.com/utkangl/GoWEB/packages/config"
+	"github.com/utkangl/GoWEB/packages/handlers"
+	"github.com/utkangl/GoWEB/packages/render"
 )
 
 const portNumber = ":8080"
