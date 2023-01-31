@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 
+	"github.com/alexedwards/scs/v2"
 	"github.com/utkangl/GoWEB/packages/config"
 	"github.com/utkangl/GoWEB/packages/handlers"
 	"github.com/utkangl/GoWEB/packages/render"
@@ -12,9 +14,20 @@ import (
 
 const portNumber = ":8080"
 
+var app config.AppConfig
+var session *scs.SessionManager
+
 func main() {
 
-	var app config.AppConfig
+	app.InProduction = false
+
+	session = scs.New()
+	session.Lifetime = 24 * time.Hour
+	session.Cookie.Persist = true
+	session.Cookie.SameSite = http.SameSiteLaxMode
+	session.Cookie.Secure = app.InProduction // uses https insted of http
+
+	app.Session = session
 
 	tempCache, err := render.CreateTemplateCache()
 	if err != nil {
@@ -27,10 +40,6 @@ func main() {
 	handlers.SetRepo(repository)
 
 	render.SetConfig(&app)
-
-	// http.HandleFunc("/", handlers.Repo.HomePage)
-	// http.HandleFunc("/about", handlers.Repo.AboutPage)
-	// _ = http.ListenAndServe(portNumber, nil)
 
 	serve := &http.Server{
 		Addr:    portNumber,
