@@ -2,6 +2,8 @@
 
     {{define "content"}}
     
+    <title> About </title>
+
         <div class = "container">
             <div class = "row">
                 <div class = "col">
@@ -9,6 +11,14 @@
                     <h1>My About Page</h1>
                     <p>This is About page<p>
                     <p> This message is sent from template data {{index .StringMap "greeting"}} </p>
+
+                    <p>
+                        {{if ne (index .StringMap "VisiterIP") ""}}  <!-- if VisiterIP is not equal to an empty string -->
+                            Your remote IP is {{index .StringMap "VisiterIP"}}
+                        {{else}}
+                            I don't know your IP yet. Visit the <a href="/"> Home page</a>so I can set it
+                        {{end}}
+                    </p>
 
                 </div>    
             </div>

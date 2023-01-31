@@ -32,6 +32,9 @@ func (rep *Repository) HomePage(Res http.ResponseWriter, Req *http.Request) {
 	stringMap := make(map[string]string)
 	stringMap["greeting"] = "Welcome to HomePage!"
 
+	VisiterIP := Req.RemoteAddr
+	rep.App.Session.Put(Req.Context(), "VisiterIP", VisiterIP)
+
 	render.RenderTemplate(Res, "home.page.tmpl", &models.TemplateData{StringMap: stringMap})
 }
 
@@ -40,6 +43,9 @@ func (rep *Repository) AboutPage(Res http.ResponseWriter, Req *http.Request) {
 
 	stringMap := make(map[string]string)
 	stringMap["greeting"] = "Welcome to AboutPage!"
+
+	VisiterIP := rep.App.Session.GetString(Req.Context(), "VisiterIP")
+	stringMap["VisiterIP"] = VisiterIP
 
 	render.RenderTemplate(Res, "about.page.tmpl", &models.TemplateData{StringMap: stringMap})
 }
