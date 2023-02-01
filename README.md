@@ -6,8 +6,8 @@ This project:
 
 Built in Golang Version- 1.19.5
 
-Uses [chi router for routing](github.com/go-chi/chi)
+Uses [chi router](github.com/go-chi/chi) for routing
 
-Uses [alex edward's SCS for session management](github.com/alexedwards/scs/v2)
+Uses [alex edward's SCS](github.com/alexedwards/scs/v2)  for session management
 
-Uses [nosurf for CSRF protection](github.com/justinas/nosurf)
+Uses [nosurf](github.com/justinas/nosurf)  for CSRF protection
