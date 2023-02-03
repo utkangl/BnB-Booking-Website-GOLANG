@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"path/filepath"
 
+	"github.com/justinas/nosurf"
 	"github.com/utkangl/GoWEB/packages/config"
 	"github.com/utkangl/GoWEB/packages/models"
 )
@@ -18,11 +19,12 @@ func SetConfig(Application *config.AppConfig) {
 }
 
 // we will call this function when we want some data to be sent to every template of our application
-func AddDefaultDataToTemplate(tempData *models.TemplateData) *models.TemplateData {
+func AddDefaultDataToTemplate(tempData *models.TemplateData, req *http.Request) *models.TemplateData {
+	tempData.CSRFToken = nosurf.Token(req)
 	return tempData
 }
 
-func RenderTemplate(Res http.ResponseWriter, tmpl string, templateData *models.TemplateData) {
+func RenderTemplate(Res http.ResponseWriter, tmpl string, templateData *models.TemplateData, req *http.Request) {
 
 	// create a template cache
 	tempCache := app.TemplateCache
@@ -35,7 +37,7 @@ func RenderTemplate(Res http.ResponseWriter, tmpl string, templateData *models.T
 
 	buf := new(bytes.Buffer)
 
-	templateData = AddDefaultDataToTemplate(templateData)
+	templateData = AddDefaultDataToTemplate(templateData, req)
 
 	//Using buffer for higher protection,
 	err := temp.Execute(buf, templateData) //Rather than executing the template directly, it will executes its bytes.

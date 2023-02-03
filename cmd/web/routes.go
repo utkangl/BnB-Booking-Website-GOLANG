@@ -18,8 +18,15 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 
-	mux.Get("/", handlers.Repo.HomePage)
-	mux.Get("/about", handlers.Repo.AboutPage)
+	mux.Get("/", handlers.Repo.Home)
+	mux.Get("/about", handlers.Repo.About)
+	mux.Get("/book", handlers.Repo.GetBook)
+	mux.Post("/book", handlers.Repo.PostBook)
+	mux.Get("/contact", handlers.Repo.Contact)
+	mux.Get("/kings_suit", handlers.Repo.Kings_suit)
+	mux.Get("/regular_room", handlers.Repo.Regular_room)
+	mux.Get("/book-json", handlers.Repo.AvailabilityJSON)
+	mux.Get("/make_reservation", handlers.Repo.Make_reservation)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))
