@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 
 	"github.com/justinas/nosurf"
-	"github.com/utkangl/GoWEB/packages/config"
-	"github.com/utkangl/GoWEB/packages/models"
+	"github.com/utkangl/GoWEB/internalPackages/config"
+	"github.com/utkangl/GoWEB/internalPackages/models"
 )
 
 var app *config.AppConfig

@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/utkangl/GoWEB/packages/config"
-	"github.com/utkangl/GoWEB/packages/models"
-	"github.com/utkangl/GoWEB/packages/render"
+	"github.com/utkangl/GoWEB/internalPackages/config"
+	"github.com/utkangl/GoWEB/internalPackages/models"
+	"github.com/utkangl/GoWEB/internalPackages/render"
 )
 
 // Repository variable to used by handlers

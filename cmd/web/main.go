@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/alexedwards/scs/v2"
-	"github.com/utkangl/GoWEB/packages/config"
-	"github.com/utkangl/GoWEB/packages/handlers"
-	"github.com/utkangl/GoWEB/packages/render"
+	"github.com/utkangl/GoWEB/internalPackages/config"
+	"github.com/utkangl/GoWEB/internalPackages/handlers"
+	"github.com/utkangl/GoWEB/internalPackages/render"
 )
 
 const portNumber = ":8080"
