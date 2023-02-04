@@ -71,9 +71,23 @@
             </div>
         </form>
         `;
+
         attention.custom({
             title: 'Choose your dates',
             msg: html,
+
+            callback: function(result)
+            {
+                console.log("called");
+
+                fetch('/book-json')
+                    .then(response => response.json())
+                    .then(data =>{
+                        console.log(data);
+                        console.log(data.ok);
+                        console.log(data.msg);
+                    })
+            }
         });
     })
 </script>
