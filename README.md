@@ -11,3 +11,5 @@ This project:
   Uses [alex edward's SCS](github.com/alexedwards/scs/v2)  for session management
 
   Uses [nosurf](github.com/justinas/nosurf)  for CSRF protection
+
+  Uses [govalidator](github.com/asaskevich/govalidator) for email validation check

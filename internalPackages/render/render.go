@@ -10,6 +10,7 @@ import (
 	"github.com/justinas/nosurf"
 	"github.com/utkangl/GoWEB/internalPackages/config"
 	"github.com/utkangl/GoWEB/internalPackages/models"
+	"github.com/utkangl/GoWEB/pkg"
 )
 
 var app *config.AppConfig
@@ -40,15 +41,12 @@ func RenderTemplate(Res http.ResponseWriter, tmpl string, templateData *models.T
 	templateData = AddDefaultDataToTemplate(templateData, req)
 
 	//Using buffer for higher protection,
-	err := temp.Execute(buf, templateData) //Rather than executing the template directly, it will executes its bytes.
-	if err != nil {                        // It will help to understand why does the error exactly come from
-		log.Println(err)
-	}
+	err := temp.Execute(buf, templateData) //Rather than executing the template directly, it will executes its bytes. It will help to understand why does the error exactly come from
+	pkg.ErrorNilCheckPrint(err)
 	//render the template
 	_, err = buf.WriteTo(Res)
-	if err != nil {
-		log.Println(err)
-	}
+	pkg.ErrorNilCheckPrint(err)
+
 }
 
 // this function takes all templates and layouts, puts them together and adds them to the cache

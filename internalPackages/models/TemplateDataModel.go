@@ -1,5 +1,7 @@
 package models
 
+import "github.com/utkangl/GoWEB/internalPackages/forms"
+
 // new struct to hold the datas that will be sent to templates by handler functions
 // making the struct hold the possible data types that we may send
 type TemplateData struct {
@@ -11,4 +13,5 @@ type TemplateData struct {
 	Flash      string // Messages to send to user, like "Successfully logged in"
 	Warning    string // Warning to send to user
 	Error      string // Error to send to user
+	Form       *forms.Form
 }

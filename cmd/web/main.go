@@ -10,6 +10,7 @@ import (
 	"github.com/utkangl/GoWEB/internalPackages/config"
 	"github.com/utkangl/GoWEB/internalPackages/handlers"
 	"github.com/utkangl/GoWEB/internalPackages/render"
+	"github.com/utkangl/GoWEB/pkg"
 )
 
 const portNumber = ":8080"
@@ -30,9 +31,7 @@ func main() {
 	app.Session = session
 
 	tempCache, err := render.CreateTemplateCache()
-	if err != nil {
-		log.Fatal("Cannot create template cache")
-	}
+	pkg.ErrorNilCheckFatal(err)
 
 	app.TemplateCache = tempCache
 

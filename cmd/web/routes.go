@@ -14,7 +14,6 @@ func routes(app *config.AppConfig) http.Handler {
 	mux := chi.NewRouter()
 
 	mux.Use(middleware.Recoverer) // Recovers from possible panics and gives detaield information about what went wrong
-	//mux.Use(WriteToConsole)
 	mux.Use(NoSurf)
 	mux.Use(SessionLoad)
 
@@ -26,7 +25,8 @@ func routes(app *config.AppConfig) http.Handler {
 	mux.Get("/kings_suit", handlers.Repo.Kings_suit)
 	mux.Get("/regular_room", handlers.Repo.Regular_room)
 	mux.Post("/book-json", handlers.Repo.AvailabilityJSON)
-	mux.Get("/make_reservation", handlers.Repo.Make_reservation)
+	mux.Get("/make-reservation", handlers.Repo.Reservation)
+	mux.Post("/make-reservation", handlers.Repo.PostReservation)
 
 	fileServer := http.FileServer(http.Dir("./static/"))
 	mux.Handle("/static/*", http.StripPrefix("/static", fileServer))

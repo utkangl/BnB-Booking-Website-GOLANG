@@ -7,8 +7,10 @@ import (
 	"net/http"
 
 	"github.com/utkangl/GoWEB/internalPackages/config"
+	"github.com/utkangl/GoWEB/internalPackages/forms"
 	"github.com/utkangl/GoWEB/internalPackages/models"
 	"github.com/utkangl/GoWEB/internalPackages/render"
+	"github.com/utkangl/GoWEB/pkg"
 )
 
 // Repository variable to used by handlers
@@ -90,8 +92,47 @@ func (rep *Repository) AvailabilityJSON(Res http.ResponseWriter, Req *http.Reque
 
 }
 
-func (rep *Repository) Make_reservation(Res http.ResponseWriter, Req *http.Request) {
-	render.RenderTemplate(Res, "make-reservation.page.tmpl", &models.TemplateData{}, Req)
+func (rep *Repository) Reservation(Res http.ResponseWriter, Req *http.Request) {
+
+	var emptyReservation models.Reservation
+	data := make(map[string]interface{})
+	data["reservation"] = emptyReservation
+
+	render.RenderTemplate(Res, "make-reservation.page.tmpl", &models.TemplateData{Form: forms.CreateForm(nil), Data: data}, Req)
+}
+
+func (rep *Repository) PostReservation(Res http.ResponseWriter, Req *http.Request) {
+	err := Req.ParseForm()
+	pkg.ErrorNilCheckPrint(err)
+
+	reservation := models.Reservation{
+		FirstName: Req.Form.Get("first_name"),
+		LastName:  Req.Form.Get("last_name"),
+		Phone:     Req.Form.Get("phone"),
+		Email:     Req.Form.Get("email"),
+	}
+
+	// PostForm is url.Values type
+	form := forms.CreateForm(Req.PostForm)
+
+	// function has two parameters, field String and http.Request. Return true if the field is not empty
+	//form.Has("first_name", Req)
+
+	form.Required("first_name", "last_name", "phone", "email")
+	form.MinLength("first_name", 5, Req)
+	form.MinLength("last_name", 8, Req)
+	form.MinLength("phone", 9, Req)
+
+	form.IsValidEmail("email")
+
+	if !form.Valid() {
+		data := make(map[string]interface{})
+		data["reservation"] = reservation
+
+		render.RenderTemplate(Res, "make-reservation.page.tmpl", &models.TemplateData{Form: form, Data: data}, Req)
+
+		return // stop processing
+	}
 }
 
 func (rep *Repository) Kings_suit(Res http.ResponseWriter, Req *http.Request) {
