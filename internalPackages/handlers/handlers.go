@@ -145,7 +145,11 @@ func (rep *Repository) ReservationSummary(Res http.ResponseWriter, Req *http.Req
 
 	if !ok {
 		log.Println("could not get the data from session")
+		rep.App.Session.Put(Req.Context(), "error", "cant get reservation from session")
+		http.Redirect(Res, Req, "/", http.StatusTemporaryRedirect)
 	}
+
+	rep.App.Session.Remove(Req.Context(), "reservation")
 
 	data := make(map[string]interface{})
 	data["reservation"] = reservation

@@ -21,6 +21,11 @@ func SetConfig(Application *config.AppConfig) {
 
 // we will call this function when we want some data to be sent to every template of our application
 func AddDefaultDataToTemplate(tempData *models.TemplateData, req *http.Request) *models.TemplateData {
+
+	tempData.Flash = app.Session.PopString(req.Context(), "flash")
+	tempData.Error = app.Session.PopString(req.Context(), "error")
+	tempData.Warning = app.Session.PopString(req.Context(), "warning")
+
 	tempData.CSRFToken = nosurf.Token(req)
 	return tempData
 }
