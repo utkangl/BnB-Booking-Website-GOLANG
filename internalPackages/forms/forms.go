@@ -54,6 +54,10 @@ func (f *Form) IsValidEmail(field string) {
 	}
 }
 
+// func (f *Form) IsValidPhoneNumber(Numberfield *phonenumbers.PhoneNumber, Regionfield string) bool {
+// 	return phonenumbers.IsValidNumberForRegion(Numberfield, Regionfield)
+// }
+
 func (f *Form) Has(field string, r *http.Request) bool {
 	x := r.Form.Get(field)
 	if x == "" {
