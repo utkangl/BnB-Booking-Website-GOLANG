@@ -102,6 +102,7 @@ func (rep *Repository) Reservation(Res http.ResponseWriter, Req *http.Request) {
 }
 
 func (rep *Repository) PostReservation(Res http.ResponseWriter, Req *http.Request) {
+
 	err := Req.ParseForm()
 	pkg.ErrorNilCheckPrint(err)
 
@@ -114,9 +115,6 @@ func (rep *Repository) PostReservation(Res http.ResponseWriter, Req *http.Reques
 
 	// PostForm is url.Values type
 	form := forms.CreateForm(Req.PostForm)
-
-	// function has two parameters, field String and http.Request. Return true if the field is not empty
-	//form.Has("first_name", Req)
 
 	form.Required("first_name", "last_name", "phone", "email")
 	form.MinLength("first_name", 5, Req)
@@ -133,6 +131,26 @@ func (rep *Repository) PostReservation(Res http.ResponseWriter, Req *http.Reques
 
 		return // stop processing
 	}
+
+	// putting input data into the session
+	rep.App.Session.Put(Req.Context(), "reservation", reservation)
+	// get the data from the session
+	http.Redirect(Res, Req, "/reservation-summary", http.StatusSeeOther)
+
+}
+
+func (rep *Repository) ReservationSummary(Res http.ResponseWriter, Req *http.Request) {
+
+	reservation, ok := rep.App.Session.Get(Req.Context(), "reservation").(models.Reservation)
+
+	if !ok {
+		log.Println("could not get the data from session")
+	}
+
+	data := make(map[string]interface{})
+	data["reservation"] = reservation
+
+	render.RenderTemplate(Res, "reservation-summary.page.tmpl", &models.TemplateData{Data: data}, Req)
 }
 
 func (rep *Repository) Kings_suit(Res http.ResponseWriter, Req *http.Request) {
