@@ -9,7 +9,7 @@ import (
 	"github.com/utkangl/GoWEB/internalPackages/handlers"
 )
 
-func routes(app *config.AppConfig) http.Handler {
+func routes(_ *config.AppConfig) http.Handler {
 
 	mux := chi.NewRouter()
 
