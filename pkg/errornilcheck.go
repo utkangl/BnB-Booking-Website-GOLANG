@@ -13,3 +13,7 @@ func ErrorNilCheckFatal(err error) {
 		log.Println(err)
 	}
 }
+
+func ErrorNilCheckReturn(err error) error {
+	return err
+}

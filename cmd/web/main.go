@@ -22,6 +22,22 @@ var session *scs.SessionManager
 
 func main() {
 
+	err := run()
+	pkg.ErrorNilCheckPrint(err)
+
+	fmt.Println("Starting the Application on Port: ", portNumber)
+
+	serve := &http.Server{
+		Addr:    portNumber,
+		Handler: routes(&app)}
+
+	err = serve.ListenAndServe()
+	log.Fatal(err, "Cannot serve")
+
+}
+
+func run() error {
+
 	// what we are going to put in session,
 	gob.Register(models.Reservation{})
 
@@ -37,7 +53,7 @@ func main() {
 
 	tempCache, err := render.CreateTemplateCache()
 	pkg.ErrorNilCheckFatal(err)
-
+	pkg.ErrorNilCheckReturn(err)
 	app.TemplateCache = tempCache
 
 	repository := handlers.CreateRepo(&app)
@@ -45,14 +61,5 @@ func main() {
 
 	render.SetConfig(&app)
 
-	serve := &http.Server{
-		Addr:    portNumber,
-		Handler: routes(&app),
-	}
-
-	fmt.Println("Starting the Application on Port: ", portNumber)
-
-	err = serve.ListenAndServe()
-	log.Fatal(err, "Cannot serve")
-
+	return nil
 }
