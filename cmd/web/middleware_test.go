@@ -6,6 +6,7 @@ import (
 	"testing"
 )
 
+// tests if the parameter is handler type
 func TestNoSurf(t *testing.T) {
 
 	var myHandler handler
@@ -21,6 +22,7 @@ func TestNoSurf(t *testing.T) {
 
 }
 
+// tests if the parameter is handler type
 func TestSessionLoad(t *testing.T) {
 
 	var myHandler handler
