@@ -2,6 +2,7 @@ package render
 
 import (
 	"bytes"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -14,6 +15,7 @@ import (
 )
 
 var app *config.AppConfig
+var pathToTemplates = "/.templates"
 
 func SetConfig(Application *config.AppConfig) {
 	app = Application
@@ -59,7 +61,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 	templateCache := make(map[string]*template.Template)
 
 	// get all templates from templates folder
-	pages, err := filepath.Glob("./Templates/*.page.tmpl")
+	pages, err := filepath.Glob(fmt.Sprintf("%s/*.page.tmpl", pathToTemplates))
 	if err != nil {
 		return templateCache, err
 	}
@@ -74,7 +76,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 		}
 
 		// get all layouts
-		matches, err := filepath.Glob("./Templates/*.layout.tmpl")
+		matches, err := filepath.Glob(fmt.Sprintf("%s/*.layout.tmpl", pathToTemplates))
 
 		if err != nil {
 			return templateCache, err
@@ -82,7 +84,7 @@ func CreateTemplateCache() (map[string]*template.Template, error) {
 
 		// add templates and layouts up with parseglob function
 		if len(matches) > 0 {
-			templateSet, err := templateSet.ParseGlob("./Templates/*.layout.tmpl")
+			templateSet, err := templateSet.ParseGlob(fmt.Sprintf("%s/*.layout.tmpl", pathToTemplates))
 			if err != nil {
 				return templateCache, err
 			}

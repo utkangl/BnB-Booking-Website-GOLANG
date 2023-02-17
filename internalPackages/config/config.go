@@ -11,5 +11,6 @@ import (
 type AppConfig struct {
 	TemplateCache map[string]*template.Template
 	InProduction  bool
+	UseCache      bool
 	Session       *scs.SessionManager
 }
