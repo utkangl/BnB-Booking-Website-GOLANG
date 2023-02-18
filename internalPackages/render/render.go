@@ -3,10 +3,10 @@ package render
 import (
 	"bytes"
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"path/filepath"
+	"text/template"
 
 	"github.com/justinas/nosurf"
 	"github.com/utkangl/GoWEB/internalPackages/config"

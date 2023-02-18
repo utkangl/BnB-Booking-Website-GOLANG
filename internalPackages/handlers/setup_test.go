@@ -36,7 +36,7 @@ func getRoutes() http.Handler {
 
 	app.Session = session
 
-	tempCache, err := render.CreateTemplateCache()
+	tempCache, err := CreateTestTemplateCache()
 	pkg.ErrorNilCheckFatal(err)
 	//pkg.ErrorNilCheckReturn(err)
 	app.TemplateCache = tempCache
