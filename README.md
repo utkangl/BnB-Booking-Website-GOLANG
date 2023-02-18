@@ -6,7 +6,7 @@ This project:
 
   Built in Golang Version- 1.19.5
 
-  Uses [chi router](github.com/go-chi/chi) for routing
+  Uses [chi router](https://github.com/go-chi/chi) for routing
 
   Uses [alex edward's SCS](github.com/alexedwards/scs/v2)  for session management
 
