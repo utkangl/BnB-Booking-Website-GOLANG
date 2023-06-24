@@ -1,4 +1,5 @@
 # Booking & Reservation 
+(This project is not finished yet)
 
 This is the repository of my booking and reservation project.
 
